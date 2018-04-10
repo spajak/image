@@ -1,0 +1,17 @@
+{
+    "name": "spajak/image",
+    "description": "Simple GD image manipulation class",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Sebastian Pająk",
+            "email": "spconv@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"Image\\": "src/" }
+    },
+    "require": {
+        "php": ">=5.6"
+    }
+}
