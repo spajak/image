@@ -20,7 +20,7 @@ class Image
      * Constructs a new Image instance using the result of
      * imagecreatetruecolor()
      *
-     * @param resource $resource
+     * @param resource $resource GD image resource
      */
     public function __construct($resource)
     {
@@ -42,7 +42,7 @@ class Image
     /**
      * Image string representation
      *
-     * @return string  Image dimensions
+     * @return string Image dimensions
      */
     public function __toString()
     {
@@ -54,9 +54,10 @@ class Image
      * Internal. Create new canvas
      *
      * @param integer $width  Image width
-     * @param integer $height  Image height
+     * @param integer $height Image height
      *
-     * @return resource  GD image resource
+     * @throws RuntimeException
+     * @return resource GD image resource
      */
     protected function createCanvas($width, $height)
     {
@@ -71,10 +72,12 @@ class Image
         return $resource;
     }
 
+
     /**
      * Copy of the image
      *
-     * @return Image  New Image instance
+     * @throws RuntimeException
+     * @return Image New Image instance
      */
     public function copy()
     {
@@ -98,9 +101,11 @@ class Image
      * Create resized copy of the image
      *
      * @param integer $width  Width of the new image
-     * @param integer $height  Height of the new image
+     * @param integer $height Height of the new image
      *
-     * @return Image
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
+     * @return Image Resized copy of the image
      */
     public function resize($width, $height)
     {
@@ -132,11 +137,13 @@ class Image
      * Crop the image
      *
      * @param integer $width  Width of the cropped image
-     * @param integer $height  Height of the cropped image
-     * @param integer $x  Crop start point x coordinate
-     * @param integer $y  Crop start point y coordinate
+     * @param integer $height Height of the cropped image
+     * @param integer $x      Crop start point x coordinate
+     * @param integer $y      Crop start point y coordinate
      *
-     * @return Image  Cropped copy of the image
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
+     * @return Image Cropped copy of the image
      */
     public function crop($width, $height, $x = 0, $y = 0)
     {
@@ -177,10 +184,12 @@ class Image
     /**
      * Paste an image into this image
      *
-     * @param Image $image  An image to paste
-     * @param integer $x  Start point x coordinate
-     * @param integer $y  Start point y coordinate
+     * @param Image $image An image to paste
+     * @param integer $x   Start point x coordinate
+     * @param integer $y   Start point y coordinate
      *
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      * @return Image
      */
     public function paste(Image $image, $x = 0, $y = 0)
@@ -220,10 +229,11 @@ class Image
      * Generate thumbnail image
      *
      * @param integer $maxWidth  Width of the thumb image
-     * @param integer $maxHeight  Height of the thumb image
-     * @param integer $mode  THUMBNAIL_OUTER, THUMBNAIL_INNER
+     * @param integer $maxHeight Height of the thumb image
+     * @param integer $mode      THUMBNAIL_OUTER or THUMBNAIL_INNER constants
      *
-     * @return Image  Thumbnail image
+     * @throws InvalidArgumentException
+     * @return Image Thumbnail image
      */
     public function thumbnail($maxWidth, $maxHeight, $mode = self::THUMBNAIL_OUTER)
     {
@@ -269,8 +279,9 @@ class Image
     /**
      * Sharpen image
      *
-     * @param float $factor  Value from 0 to 1. Higher values give sharper image
+     * @param float $factor Value from 0 to 1. Higher values give sharper image
      *
+     * @throws RuntimeException
      * @return Image
      */
     public function sharpen($factor)
@@ -300,7 +311,7 @@ class Image
     /**
      * Image resource
      *
-     * @return resource  GD image resource
+     * @return resource GD image resource
      */
     public function getResource()
     {
@@ -333,10 +344,11 @@ class Image
     /**
      * Return color at x,y coordinate
      *
-     * @param int $x
-     * @param int $y
+     * @param int $x X coordinate
+     * @param int $y Y coordinate
      *
-     * @return array  Color (r,g,b,a)
+     * @throws InvalidArgumentException
+     * @return array Color (r,g,b,a)
      */
     public function getColorAt($x = 0, $y = 0)
     {
@@ -356,9 +368,11 @@ class Image
     /**
      * Get image data as a string
      *
-     * @param string $format  Image format, jpeg or png
-     * @param integer $quality  Percentage
+     * @param string  $format  Image format, jpeg or png
+     * @param integer $quality Percentage
      *
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      * @return string
      */
     public function getData($format, $quality = 85)
@@ -388,10 +402,11 @@ class Image
     /**
      * Save image to file
      *
-     * @param string $path  File path
-     * @param string $format  Image format, jpeg or png
-     * @param integer $quality  Percentage
+     * @param string  $path    File path
+     * @param string  $format  Image format, jpeg or png
+     * @param integer $quality Percentage
      *
+     * @throws RuntimeException
      * @return string  Image data
      */
     public function save($path, $format = 'jpeg', $quality = 85)
@@ -415,11 +430,13 @@ class Image
     /**
      * Create new image
      *
-     * @param integer $width  Width of the image
-     * @param integer $height  Height of the image
+     * @param integer      $width  Width of the image
+     * @param integer      $height Height of the image
      * @param array|string $color
-     * @param int $alpha
+     * @param int          $alpha
      *
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      * @return Image
      */
     public static function create($width, $height, $color = null, $alpha = null)
@@ -460,7 +477,7 @@ class Image
     /**
      * Create Image from the given string data
      *
-     * @param string $data  Image data
+     * @param string $data Image data
      *
      * @throws RuntimeException
      * @return Image
@@ -478,7 +495,7 @@ class Image
     /**
      * Create Image from the given file path
      *
-     * @param string $path  Image file path
+     * @param string $path Image file path
      *
      * @throws RuntimeException
      * @return Image
@@ -497,9 +514,10 @@ class Image
      * Parse color
      *
      * @param string|array $color
-     * @param int $alpha
+     * @param integer      $alpha
      *
-     * @return array  Color array (r,g,b,a)
+     * @throws InvalidArgumentException
+     * @return array Color array (r,g,b,a)
      */
     public static function parseColor($color, $alpha = null)
     {
