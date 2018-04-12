@@ -1,7 +1,8 @@
 {
     "name": "spajak/image",
-    "description": "Simple GD image manipulation class",
+    "description": "Simple GD image manipulation library",
     "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "Sebastian Pająk",
