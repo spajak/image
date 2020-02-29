@@ -1,6 +1,6 @@
 <?php
 
-namespace Image;
+namespace Spajak;
 
 use RuntimeException;
 use InvalidArgumentException;

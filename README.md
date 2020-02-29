@@ -4,7 +4,7 @@ Simple GD image manipulation library
 
 ## Usage
 ```php
-use Image\Image;
+use Spajak\Image;
 
 $image = Image::createFromFile('lena.jpg');
 $thumb = $image->thumbnail(100, 100);

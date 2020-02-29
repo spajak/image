@@ -10,7 +10,7 @@
         }
     ],
     "autoload": {
-        "psr-4": {"SPajak\\Image\\": "src/" }
+        "psr-4": {"Spajak\\": "src/" }
     },
     "require": {
         "php": ">=5.6"
