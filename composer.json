@@ -1,0 +1,18 @@
+{
+    "name": "spajak/image",
+    "description": "Simple GD image manipulation library",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastian Pająk",
+            "email": "spconv@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"SPajak\\Image\\": "src/" }
+    },
+    "require": {
+        "php": ">=5.6"
+    }
+}
